@@ -5,9 +5,10 @@ import VideoItem from "../videoItem";
 import Sidebar from "../sidebar";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
+import GamingItem from "../gamingItem";
 import Loader from "react-loader";
 
-class Home extends Component {
+class Gaming extends Component {
   state = {
     data: [],
     isLoading: false,
@@ -20,7 +21,7 @@ class Home extends Component {
   getData = async () => {
     this.setState({ isLoading: true });
     const jwtToken = Cookies.get("jwt_token");
-    const url = "https://apis.ccbp.in/videos/all";
+    const url = "https://apis.ccbp.in/videos/gaming";
     const options = {
       method: "GET",
       headers: {
@@ -34,12 +35,7 @@ class Home extends Component {
         title: item.title,
         id: item.id,
         thumbnailUrl: item.thumbnail_url,
-        channel: {
-          profileImageUrl: item.channel.profile_image_url,
-          name: item.channel.name,
-        },
         viewCount: item.view_count,
-        publishedAt: item.published_at,
       }));
       console.log(formattedData);
       this.setState({
@@ -72,7 +68,7 @@ class Home extends Component {
               ) : (
                 <ul className="videos-list-container">
                   {data.map((item) => (
-                    <VideoItem item={item} />
+                    <GamingItem item={item} />
                   ))}
                 </ul>
               )}
@@ -83,4 +79,4 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+export default Gaming;

@@ -7,7 +7,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Loader from "react-loader";
 
-class Home extends Component {
+class Trending extends Component {
   state = {
     data: [],
     isLoading: false,
@@ -20,7 +20,7 @@ class Home extends Component {
   getData = async () => {
     this.setState({ isLoading: true });
     const jwtToken = Cookies.get("jwt_token");
-    const url = "https://apis.ccbp.in/videos/all";
+    const url = "https://apis.ccbp.in/videos/trending";
     const options = {
       method: "GET",
       headers: {
@@ -44,7 +44,7 @@ class Home extends Component {
       console.log(formattedData);
       this.setState({
         data: formattedData,
-        isLoading: false,
+        isLoading: true,
       });
     }
   };
@@ -60,22 +60,11 @@ class Home extends Component {
             <div>Premium Container</div>
             <div>
               <input type="search" placeholder="search" className="search" />
-              {isLoading ? (
-                <div className="loader-container" data-testid="loader">
-                  <Loader
-                    type="ThreeDots"
-                    color="#ffffff"
-                    height="50"
-                    width="50"
-                  />
-                </div>
-              ) : (
-                <ul className="videos-list-container">
-                  {data.map((item) => (
-                    <VideoItem item={item} />
-                  ))}
-                </ul>
-              )}
+              <ul className="videos-list-container">
+                {data.map((item) => (
+                  <VideoItem item={item} />
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -83,4 +72,4 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+export default Trending;
